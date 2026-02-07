@@ -18,7 +18,7 @@ export default function CtaSection() {
           All on NuroFi.
         </p>
         <a
-          href="#"
+          href="https://app.nurofi.xyz/"
           className="inline-flex items-center gap-2 rounded-full bg-white px-10 py-4 text-base font-semibold text-black transition-all hover:bg-white/90 hover:shadow-lg hover:shadow-white/10"
         >
           Launch App

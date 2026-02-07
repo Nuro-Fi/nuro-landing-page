@@ -16,7 +16,9 @@ export default function Footer() {
         </div>
         <div className="flex flex-1 items-center justify-center gap-8">
           <a
-            href="#"
+            href="https://nuro-fi.gitbook.io/nuro-fi-docs/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs uppercase tracking-wider text-white/30 transition-colors hover:text-white/60"
           >
             Docs
