@@ -135,7 +135,7 @@ export default function Home() {
                 How It Works
               </h2>
               <p className="mx-auto max-w-lg text-center text-lg text-white/40">
-                Three simple steps to start earning yield on your collateral while borrowing.
+                Yield-bearing collateral. Borrow USDC across multiple chains.
               </p>
             </ScrollReveal>
           </div>

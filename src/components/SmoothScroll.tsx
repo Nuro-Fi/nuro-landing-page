@@ -22,7 +22,26 @@ export default function SmoothScroll() {
     });
     gsap.ticker.lagSmoothing(0);
 
+    // Handle anchor link clicks with Lenis smooth scroll
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a[href^="#"]') as HTMLAnchorElement | null;
+      if (!anchor) return;
+
+      const hash = anchor.getAttribute('href');
+      if (!hash || hash === '#') return;
+
+      const el = document.querySelector(hash);
+      if (el) {
+        e.preventDefault();
+        lenis.scrollTo(el as HTMLElement, { offset: -80 });
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+
     return () => {
+      document.removeEventListener('click', handleClick);
       lenis.destroy();
       gsap.ticker.remove(lenis.raf);
     };
