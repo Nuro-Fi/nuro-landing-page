@@ -84,16 +84,18 @@ type Props = {
   scanlineFrequency?: number;
   warpAmount?: number;
   resolutionScale?: number;
+  targetFps?: number;
 };
 
 export default function DarkVeil({
   hueShift = 0,
   noiseIntensity = 0,
   scanlineIntensity = 0,
-  speed = 0.5,
+  speed = 0.3,
   scanlineFrequency = 0,
   warpAmount = 0,
   resolutionScale = 1,
+  targetFps = 15,
 }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
   const propsRef = useRef({
@@ -104,6 +106,7 @@ export default function DarkVeil({
     scanlineFrequency,
     warpAmount,
     resolutionScale,
+    targetFps,
   });
 
   useEffect(() => {
@@ -116,6 +119,7 @@ export default function DarkVeil({
       scanlineFrequency,
       warpAmount,
       resolutionScale,
+      targetFps,
     };
 
     const canvas = ref.current as HTMLCanvasElement;
@@ -161,9 +165,22 @@ export default function DarkVeil({
 
     const start = performance.now();
     let frame = 0;
+    let lastFrameTime = 0;
 
-    const loop = () => {
+    const loop = (currentTime: number) => {
+      frame = requestAnimationFrame(loop);
+
       const props = propsRef.current;
+      const frameInterval = 1000 / props.targetFps;
+      const deltaTime = currentTime - lastFrameTime;
+
+      // Skip rendering if not enough time has passed (FPS limiter)
+      if (deltaTime < frameInterval) {
+        return;
+      }
+
+      lastFrameTime = currentTime - (deltaTime % frameInterval);
+
       program.uniforms.uTime.value =
         ((performance.now() - start) / 1000) * props.speed;
       program.uniforms.uHueShift.value = props.hueShift;
@@ -172,16 +189,15 @@ export default function DarkVeil({
       program.uniforms.uScanFreq.value = props.scanlineFrequency;
       program.uniforms.uWarp.value = props.warpAmount;
       renderer.render({ scene: mesh });
-      frame = requestAnimationFrame(loop);
     };
 
-    loop();
+    frame = requestAnimationFrame(loop);
 
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); 
+  }, []);
   return <canvas ref={ref} className="darkveil-canvas" />;
 }
