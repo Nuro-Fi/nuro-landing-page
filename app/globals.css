@@ -50,9 +50,6 @@ body {
   font-family: var(--font-ibm-plex-serif), serif;
 }
 
-html {
-  scroll-behavior: smooth;
-}
 
 /* Left coin — float up-down + slight tilt */
 @keyframes coin-left {
@@ -205,6 +202,11 @@ html {
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  *::-webkit-scrollbar {
+    display: none;
   }
   body {
     @apply bg-background text-foreground;
