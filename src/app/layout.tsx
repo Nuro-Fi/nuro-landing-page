@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NuroFi — Yield-Bearing Collateral Lending on Arc",
+  title: "NuroFi",
   description:
     "First yield-bearing collateral lending on Arc. Use USYC as collateral, borrow USDC on any chain.",
   icons: {

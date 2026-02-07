@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useRef, useEffect } from 'react';
-import { Renderer, Program, Mesh, Triangle, Vec2 } from 'ogl';
-import './DarkVeil.css';
+import { useRef, useEffect } from "react";
+import { Renderer, Program, Mesh, Triangle, Vec2 } from "ogl";
+import "./DarkVeil.css";
 
 const vertex = `
 attribute vec2 position;
@@ -93,16 +93,38 @@ export default function DarkVeil({
   speed = 0.5,
   scanlineFrequency = 0,
   warpAmount = 0,
-  resolutionScale = 1
+  resolutionScale = 1,
 }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
+  const propsRef = useRef({
+    hueShift,
+    noiseIntensity,
+    scanlineIntensity,
+    speed,
+    scanlineFrequency,
+    warpAmount,
+    resolutionScale,
+  });
+
   useEffect(() => {
+    // Update props ref inside effect
+    propsRef.current = {
+      hueShift,
+      noiseIntensity,
+      scanlineIntensity,
+      speed,
+      scanlineFrequency,
+      warpAmount,
+      resolutionScale,
+    };
+
     const canvas = ref.current as HTMLCanvasElement;
     const parent = canvas.parentElement as HTMLElement;
 
     const renderer = new Renderer({
-      dpr: Math.min(window.devicePixelRatio, 2),
-      canvas
+      dpr: 1, // Reduced from Math.min(window.devicePixelRatio, 2) for better performance
+      canvas,
+      powerPreference: "low-power", // Use low-power GPU preference
     });
 
     const gl = renderer.gl;
@@ -118,8 +140,8 @@ export default function DarkVeil({
         uNoise: { value: noiseIntensity },
         uScan: { value: scanlineIntensity },
         uScanFreq: { value: scanlineFrequency },
-        uWarp: { value: warpAmount }
-      }
+        uWarp: { value: warpAmount },
+      },
     });
 
     const mesh = new Mesh(gl, { geometry, program });
@@ -127,23 +149,28 @@ export default function DarkVeil({
     const resize = () => {
       const w = parent.clientWidth,
         h = parent.clientHeight;
-      renderer.setSize(w * resolutionScale, h * resolutionScale);
+      renderer.setSize(
+        w * propsRef.current.resolutionScale,
+        h * propsRef.current.resolutionScale,
+      );
       program.uniforms.uResolution.value.set(w, h);
     };
 
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
     resize();
 
     const start = performance.now();
     let frame = 0;
 
     const loop = () => {
-      program.uniforms.uTime.value = ((performance.now() - start) / 1000) * speed;
-      program.uniforms.uHueShift.value = hueShift;
-      program.uniforms.uNoise.value = noiseIntensity;
-      program.uniforms.uScan.value = scanlineIntensity;
-      program.uniforms.uScanFreq.value = scanlineFrequency;
-      program.uniforms.uWarp.value = warpAmount;
+      const props = propsRef.current;
+      program.uniforms.uTime.value =
+        ((performance.now() - start) / 1000) * props.speed;
+      program.uniforms.uHueShift.value = props.hueShift;
+      program.uniforms.uNoise.value = props.noiseIntensity;
+      program.uniforms.uScan.value = props.scanlineIntensity;
+      program.uniforms.uScanFreq.value = props.scanlineFrequency;
+      program.uniforms.uWarp.value = props.warpAmount;
       renderer.render({ scene: mesh });
       frame = requestAnimationFrame(loop);
     };
@@ -152,8 +179,9 @@ export default function DarkVeil({
 
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener('resize', resize);
+      window.removeEventListener("resize", resize);
     };
-  }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependency array - use refs for dynamic values to avoid recreating animation loop
   return <canvas ref={ref} className="darkveil-canvas" />;
 }
