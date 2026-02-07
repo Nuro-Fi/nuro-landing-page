@@ -4,7 +4,6 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import ShinyText from "@/components/ShinyText";
 
-// Lazy load DarkVeil component (WebGL is heavy)
 const DarkVeil = dynamic(() => import("@/components/DarkVeil"), {
   ssr: false,
   loading: () => <div className="absolute inset-0 bg-black/20" />,
@@ -13,7 +12,6 @@ const DarkVeil = dynamic(() => import("@/components/DarkVeil"), {
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* DarkVeil fills only this section */}
       <div className="absolute inset-0 z-0">
         <DarkVeil
           hueShift={45}
@@ -26,9 +24,7 @@ export default function HeroSection() {
       </div>
       <div className="absolute inset-0 z-1 bg-black/45" />
 
-      {/* Hero Content */}
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 pt-20 text-center md:px-10">
-        {/* Powered by Arc badge */}
         <div className="mt-8 mb-10 flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
           <span className="text-sm text-white/60">Powered by</span>
           <Image
@@ -61,9 +57,7 @@ export default function HeroSection() {
           />
         </h1>
 
-        {/* Coin Visuals */}
         <div className="relative mx-auto mt-16 h-[280px] w-full max-w-5xl md:h-[320px]">
-          {/* Left - EURC */}
           <div className="pointer-events-none absolute left-[5%] top-1/2 hidden -translate-y-1/2 lg:block">
             <div className="animate-coin-left">
               <Image
@@ -75,7 +69,6 @@ export default function HeroSection() {
               />
             </div>
           </div>
-          {/* Center - USYC */}
           <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
             <div className="animate-coin-center">
               <Image
@@ -88,7 +81,6 @@ export default function HeroSection() {
             </div>
             <div className="absolute inset-0 -z-10 rounded-full bg-blue-500/25 blur-[100px]" />
           </div>
-          {/* Right - USDC */}
           <div className="pointer-events-none absolute right-[5%] top-1/2 hidden -translate-y-1/2 lg:block">
             <div className="animate-coin-right">
               <Image
@@ -103,7 +95,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom fade into next section */}
       <div className="absolute bottom-0 left-0 z-2 h-32 w-full bg-linear-to-t from-[#050505] to-transparent" />
     </section>
   );

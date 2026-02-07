@@ -39,7 +39,6 @@ export default function StaggerCards({
       },
     });
 
-    // Animate in (fast)
     tl.to(cards, {
       opacity: 1,
       y: 0,
@@ -47,10 +46,8 @@ export default function StaggerCards({
       duration: 0.3,
     });
 
-    // Hold visible
     tl.to(cards, { duration: 0.4 });
 
-    // Animate out
     tl.to(cards, {
       opacity: 0,
       y: -50,

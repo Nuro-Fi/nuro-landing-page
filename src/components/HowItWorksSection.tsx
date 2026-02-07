@@ -7,7 +7,6 @@ export default function HowItWorksSection() {
       id="how-it-works"
       className="relative overflow-hidden bg-[#050505]"
     >
-      {/* Heading */}
       <div className="relative px-6 py-28 md:px-10">
         <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 h-[600px] w-[400px] rounded-full bg-cyan-900/15 blur-[150px]" />
         <div className="pointer-events-none absolute left-0 top-1/3 h-[400px] w-[300px] rounded-full bg-blue-900/10 blur-[120px]" />
@@ -23,7 +22,6 @@ export default function HowItWorksSection() {
         </div>
       </div>
 
-      {/* Lend USYC */}
       <div className="relative flex min-h-screen items-center px-6 md:px-10">
         <div className="pointer-events-none absolute left-0 top-1/4 h-[500px] w-[400px] rounded-full bg-amber-800/10 blur-[150px]" />
         <ScrollReveal
@@ -71,7 +69,6 @@ export default function HowItWorksSection() {
         </ScrollReveal>
       </div>
 
-      {/* Borrow USDC */}
       <div className="relative flex min-h-screen items-center px-6 md:px-10">
         <div className="pointer-events-none absolute bottom-1/4 right-0 h-[500px] w-[400px] rounded-full bg-blue-800/10 blur-[150px]" />
         <ScrollReveal

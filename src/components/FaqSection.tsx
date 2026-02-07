@@ -79,7 +79,7 @@ function FaqItem({ title, content, index }: { title: string; content: string; in
 
   return (
     <div
-      className="faq-item group cursor-pointer rounded-2xl border border-white/[0.08] bg-white/[0.02] transition-colors hover:border-white/15 hover:bg-white/[0.04]"
+      className="faq-item group cursor-pointer rounded-2xl border border-white/8 bg-white/2 transition-colors hover:border-white/15 hover:bg-white/4"
       onClick={toggle}
       data-index={index}
     >

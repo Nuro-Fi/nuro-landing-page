@@ -182,6 +182,6 @@ export default function DarkVeil({
       window.removeEventListener("resize", resize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Empty dependency array - use refs for dynamic values to avoid recreating animation loop
+  }, []); 
   return <canvas ref={ref} className="darkveil-canvas" />;
 }

@@ -51,7 +51,7 @@ export default function FaqAccordion() {
         <AccordionItem
           key={index}
           value={`item-${index + 1}`}
-          className="rounded-2xl border border-white/10 bg-white/[0.03] px-6"
+          className="rounded-2xl border border-white/10 bg-white/3 px-6"
         >
           <AccordionTrigger className="py-6 text-base font-medium text-white hover:no-underline">
             {item.title}
