@@ -57,6 +57,29 @@ export default function HeroSection() {
           />
         </h1>
 
+        <a
+          href="https://nuro-fi.gitbook.io/nuro-fi-docs/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-medium text-white backdrop-blur-sm transition-all duration-300 hover:border-white/40 hover:bg-white/20"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+          </svg>
+          View Docs
+        </a>
+
         <div className="relative mx-auto mt-16 h-[280px] w-full max-w-5xl md:h-[320px]">
           <div className="pointer-events-none absolute left-[5%] top-1/2 hidden -translate-y-1/2 lg:block">
             <div className="animate-coin-left">
